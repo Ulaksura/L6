@@ -17,6 +17,7 @@ public class MainFrame extends JFrame {
     private static final int HEIGHT = 500;
     private JMenuItem pauseMenuItem;
     private JMenuItem resumeMenuItem;
+    private  JMenuItem charismaMenuItem;
 
     // Поле, по которому прыгают мячи
     private Field field = new Field();
@@ -35,6 +36,7 @@ public class MainFrame extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         JMenu ballMenu = new JMenu("Мячи");
+
         Action addBallAction = new AbstractAction("Добавить мяч") {
             public void actionPerformed(ActionEvent event) {
                 field.addBall();
@@ -81,7 +83,7 @@ public class MainFrame extends JFrame {
                 }
             }
         };
-        resumeMenuItem = controlMenu.add(CharismaAction);
+        charismaMenuItem = controlMenu.add(CharismaAction);
 // Добавить в центр граничной компоновки поле Field
         getContentPane().add(field, BorderLayout.CENTER);
     }

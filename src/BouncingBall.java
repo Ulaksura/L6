@@ -1,7 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
+import java.sql.Time;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseMotionListener;
@@ -75,12 +77,28 @@ public class BouncingBall implements Runnable {
         Thread thisThread = new Thread(this);
 // Запускаем поток
         thisThread.start();
+
+
+    }
+    public boolean checkMouse(MouseEvent e)
+    {
+        if((e.getX()>=x-radius && e.getX()<=x+radius) && (e.getY()>=y-radius && e.getY()<=y+radius))
+        {
+            return true;
+        }
+        else return false;
     }
     public void ReSpeed(MouseEvent ev)
     {
         // Вычисляются горизонтальная и вертикальная компоненты скорости
         speedX = 3*Math.cos(Math.atan2((ev.getY()-y),(ev.getX()-x)));
         speedY = 3*Math.sin(Math.atan2((ev.getY()-y),(ev.getX()-x)));
+    }
+    public void ReSpeed(MouseEvent ev, long t)
+    {
+        speed = new Double((3*Math.sqrt(Math.pow(ev.getX()-x,2)+Math.pow(ev.getY()-y,2)))/t).intValue();
+        // Вычисляются горизонтальная и вертикальная компоненты скорости
+        ReSpeed(ev);
     }
     public void ReSpeed(double ev)
     {
@@ -146,6 +164,7 @@ public class BouncingBall implements Runnable {
         canvas.draw(ball);
         canvas.fill(ball);
     }
+
 
 }
 

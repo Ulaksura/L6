@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Time;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -90,8 +91,6 @@ public class Field extends JPanel {
     }
 
     public class MouseHandler extends MouseAdapter  {
-        double mouseX;
-        double mouseY;
         public void mouseClicked(MouseEvent ev) {
             if (ev.getButton() == MouseEvent.BUTTON3) {
                 addBall();
@@ -103,8 +102,6 @@ public class Field extends JPanel {
                 return;
             if (balls.size()!=0) {
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                mouseX=ev.getX();
-                mouseY=ev.getY();
                 pause();
             }
             else
@@ -125,7 +122,15 @@ public class Field extends JPanel {
 
         @Override
         public void mouseDragged(MouseEvent e) {
+            for (BouncingBall ball : balls) {
+                if(ball.checkMouse(e))
+                {
+                //    ball.setX(e.getX());      //Если эти строки, то шарик будет передвигаться
+                //    ball.setY(e.getY());
+                    ball.ReSpeed(e, e.getWhen());
 
+                }
+            }
         }
 
         @Override
